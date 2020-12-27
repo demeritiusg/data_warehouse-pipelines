@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: 'resources for data lake platform'
+
+Resources:
+  crmTransformationRawBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+  crmTransformationTransformaedBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+  crmTransformationConfirmedBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+  crmTransformationEnrichedBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+  crmTransformationProdRedshiftCluster:
+    Type: 'AWS::Redshift::Cluster'
+    Properties:
+      DBName: 'crmTransformationProd'
+      MasterUsername: 'Admin'
+      MasterUsernamePassword: 'Password123'
+      NodeType: 'dc1.large'
+      ClusterType: 'single-node'
+      Encypted: 'True'
+  crmTransformationEMRTransform:
+    Type: 'AWS::EMR::Cluster'
+  crmTransformationPipelineStepFunctions:
+    Type: 'AWS::StepFunctions::StateMachine'
+    Properties:
+      RoleArn: ''
+      DefinitionS3Location: ''
